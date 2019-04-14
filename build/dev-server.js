@@ -7,6 +7,7 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+const serveStatic = require("serve-static")
 const opn = require('opn')
 const path = require('path')
 const express = require('express')
@@ -25,6 +26,7 @@ const autoOpenBrowser = !!config.dev.autoOpenBrowser
 const proxyTable = config.dev.proxyTable
 
 const app = express()
+app.use(serveStatic(path.join(__dirname, 'dist')));
 const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
